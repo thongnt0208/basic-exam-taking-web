@@ -1,3 +1,18 @@
+# Basic Exam Taking Application
+This repository stores my Basic Exam Taking Web Application code by ReactJS. One part of the "Bootcamp: Front-End with React Framework" program belongs to the "Future Foundation" events series of FPT University HCM.
+Author: Nguyễn Trung Thông - SE160850
+
+## Technologies
+- Library: ReactJS
+- UI: Prime React
+
+## Requirements
+- Tạo mock data dựa trên given format (mockaroo.com)
+- Tạo node-RED json
+- Lưu countdown time, đáp án đã chọn dưới localstorage → vẫn countdown dù có thoát ra vào lại
+- Câu hỏi phải được trộn: check đáp án bằng cách gửi id câu hỏi
+- Trang Home có input nhập mã code Submit → chuyển sang trang làm bài
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

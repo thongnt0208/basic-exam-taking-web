@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "first_name": "Harvey",
+    "quizz": [
+      {
+        "id": "756111dc-252c-4db2-9683-932b3898fbd3",
+        "title": "Beyond the Rocks",
+        "lsQuestion": [
+          {
+            "id": "52c720a1-3092-41eb-a2c9-6ad6743c9dd5",
+            "question": "Pandora and the Flying Dutchman",
+            "answer": [
+              {
+                "id": "1aef0c61-b4e3-49cc-a736-0eb8904363b7",
+                "content": "Band of Outsiders (Bande à part)",
+                "isCorrect": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

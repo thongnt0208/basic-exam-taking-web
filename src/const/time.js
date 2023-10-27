@@ -1,0 +1,1 @@
+export const doQuizTimeLimit = 60; //minutes
