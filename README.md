@@ -13,6 +13,26 @@ Author: Nguyễn Trung Thông - SE160850
 - Câu hỏi phải được trộn: check đáp án bằng cách gửi id câu hỏi
 - Trang Home có input nhập mã code Submit → chuyển sang trang làm bài
 
+### Current drawbacks
+- Do not mix the answers
+- Do not UX Optimization
+- Can not stop Countdown after submission
+- No handling bad cases
+- No auto submit
+- No auto save answer to LS
+- No lazy load
+
+
+### Update real API
+- Submit answer in POST method with body data in format: [
+{
+"quesId": "48c9945c-c048-4cdc-99c3-249c4a320386",
+"answerId": "e59a4d41-19f8-44b5-aa42-92058fb6cee9"
+}
+]
+- 2 given question id:
+1. "285498f5-3486-434d-a459-bedb6bcea7ce"
+2. "182e08a1-0d18-44bd-9b4b-c7ac85144e9e"
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -2,54 +2,66 @@ import React, { useState } from "react";
 import { Button } from "primereact/button";
 import { Checkbox } from "primereact/checkbox";
 import { removeCountdownTime } from "../../../util/CountTime";
+import { SubmitAnswer } from "../ExamService";
+import { useNavigate } from "react-router-dom";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 export default function MakeQuizz({ quizz }) {
   console.log("quizz-MakeQuiz", quizz);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
-  const [score, setScore] = useState(0);
+  let [check, setCheck] = useState([]);
+  let navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleAnswerClick = (answerId, isCorrect) => {
-    if (selectedAnswers.includes(answerId)) {
-      // Deselect the answer if it's already selected
-      setSelectedAnswers(selectedAnswers.filter((id) => id !== answerId));
+  const handleAnswerClick = (questionId, answerId) => {
+    if (check.includes(answerId)) {
+      // If the Checkbox is already checked, uncheck it and remove it from the selectedAnswers and check arrays
+      setCheck(check.filter((id) => id !== answerId));
+      setSelectedAnswers(
+        selectedAnswers.filter(
+          (item) => !(item.quesId === questionId && item.answerId === answerId)
+        )
+      );
     } else {
-      setSelectedAnswers([...selectedAnswers, answerId]);
+      setCheck([...check, answerId]);
+      setSelectedAnswers([
+        ...selectedAnswers,
+        {
+          quesId: questionId,
+          answerId: answerId,
+        },
+      ]);
     }
   };
 
-  const calculateScore = () => {
-    let correctAnswersIds = [];
+  let questions = Object.values(quizz.lsQuizz);
 
-    quizz.lsQuestion.map((question) => {
-      correctAnswersIds.push(
-        ...question.answer
-          .filter((answer) => answer.isCorrect === true)
-          .map((answer) => answer.id)
-      );
-    });
-
-    correctAnswersIds.map((id) => {
-      if (selectedAnswers.includes(id)) {
-        setScore(score + 1);
-      }
+  let handleSubmit = () => {
+    setIsLoading(true)
+    // send result to server -> get score
+    removeCountdownTime();
+    SubmitAnswer(quizz.id, selectedAnswers).then((score) => {
+      console.log("score", score);
+      setIsLoading(false)
+      navigate(`/exam/finish`, { state: { score: score } });
     });
   };
 
   return (
     <>
       <h1>{quizz.title}</h1>
+      <p>{quizz.description}</p>
+      <p>{JSON.stringify(selectedAnswers)}</p>
 
-      {quizz.lsQuestion.map((question, index) => (
+      {questions.map((question, index) => (
         <div key={question.id} className="question">
-          <h2>{question.question}</h2>
+          <h2>{question.content}</h2>
           <ul>
             {question.answer.map((answer) => (
               <div key={answer.id}>
                 <Checkbox
-                  checked={selectedAnswers.includes(answer.id)}
-                  onChange={() =>
-                    handleAnswerClick(answer.id, answer.isCorrect)
-                  }
+                  checked={check.includes(answer.id)}
+                  onChange={() => handleAnswerClick(question.id, answer.id)}
                 />
                 {answer.content}
               </div>
@@ -58,13 +70,15 @@ export default function MakeQuizz({ quizz }) {
         </div>
       ))}
 
-      <Button onClick={() => {calculateScore(); removeCountdownTime()}}>Submit</Button>
-
-      <div className="score">
-        <p>
-          Score: {score}/{quizz.lsQuestion.length}
-        </p>
-      </div>
+      <Button
+        onClick={() => {
+          handleSubmit();
+        }}
+      >
+        Submit
+      </Button>
+      
+      {isLoading ? <ProgressSpinner /> : <></>}
     </>
   );
 }

@@ -4,25 +4,27 @@ import { GetQuizzById } from "./ExamService";
 import MakeQuizz from "./MakeQuizz/MakeQuizz";
 import CountTime from "./MakeQuizz/CountTime";
 import { setCountdownTime } from "../../util/CountTime";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 export default function ExamScreen() {
   let examId = useParams().id;
-  const [quizz, setQuizz] = useState(0);
-
-  
+  const [quizz, setQuizz] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     GetQuizzById(examId)
       .then((data) => {
         setQuizz(data);
         console.log("quizz", quizz);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error(error);
       });
 
-      // Set time
-      setCountdownTime();
+    // Set time
+    setCountdownTime();
   }, []);
 
   return (
@@ -31,9 +33,10 @@ export default function ExamScreen() {
       <p>Exam ID: {examId}</p>
       {/* <p>{JSON.stringify(quizz)}</p> */}
       {/* Input information */}
+      {isLoading ? <ProgressSpinner /> : <></>}
       {/* Make Quizz */}
-      {quizz===0 ? <></> : <MakeQuizz quizz={quizz} />}
-      <CountTime/>
+      {quizz === null ? <></> : <MakeQuizz quizz={quizz} />}
+      <CountTime />
     </>
   );
 }
