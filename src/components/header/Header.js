@@ -1,6 +1,7 @@
 import React from "react";
 import { Menubar } from "primereact/menubar";
 import { InputText } from "primereact/inputtext";
+import { Link } from "react-router-dom";
 
 function Header() {
   const items = [
@@ -103,12 +104,14 @@ function Header() {
   ];
 
   const start = (
-    <img
-      alt="logo"
-      src="https://primefaces.org/cdn/primereact/images/logo.png"
-      height="40"
-      className="mr-2"
-    ></img>
+    <Link to="/">
+      <img
+        alt="logo"
+        src="https://primefaces.org/cdn/primereact/images/logo.png"
+        height="40"
+        className="mr-2"
+      ></img>
+    </Link>
   );
   const end = <InputText placeholder="Search" type="text" className="w-full" />;
 
