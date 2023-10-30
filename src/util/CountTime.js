@@ -41,19 +41,18 @@ export function SecondsToMinutes(seconds) {
 }
 
 /**
- * Sets the countdown time in seconds if not already set.
+ * Sets the countdown time in seconds.
  *
- * @description This function checks if the countdown time is stored in local storage. If not, it calculates the countdown time in seconds based on the 'doQuizTimeLimit' variable and stores it in local storage.
- * @version 1.0.0
+ * @description This function calculates the countdown time in seconds based on the 'doQuizTimeLimit' variable and stores it in local storage.
+ * @version 1.0.1
  * @author ThongNT
  */
 export function setCountdownTime() {
-  if (localStorage.getItem("countdownTime") === null) {
     localStorage.setItem(
       "countdownTime",
       MinutesToSeconds(doQuizTimeLimit).toString()
     );
-  }
+  
 }
 
 /**

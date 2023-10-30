@@ -2,6 +2,7 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { setCountdownTime } from "../../util/CountTime";
 
 export default function HomeScreen() {
   const [userInput, setUserInput] = useState("");
@@ -12,6 +13,8 @@ export default function HomeScreen() {
   };
 
   const handleButtonClick = () => {
+    // Set time
+    setCountdownTime();
     navigate(`/exam/${userInput}`);
   };
 

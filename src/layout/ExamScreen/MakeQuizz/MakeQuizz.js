@@ -17,32 +17,38 @@ export default function MakeQuizz({ quizz }) {
     if (check.includes(answerId)) {
       // If the Checkbox is already checked, uncheck it and remove it from the selectedAnswers and check arrays
       setCheck(check.filter((id) => id !== answerId));
-      setSelectedAnswers(
-        selectedAnswers.filter(
-          (item) => !(item.quesId === questionId && item.answerId === answerId)
-        )
+      let tmp = selectedAnswers.filter(
+        (item) => !(item.quesId === questionId && item.answerId === answerId)
       );
+      setSelectedAnswers(tmp);
+      localStorage.setItem("selectedAnswers", JSON.stringify(tmp));
     } else {
       setCheck([...check, answerId]);
-      setSelectedAnswers([
+      let tmp = [
         ...selectedAnswers,
         {
           quesId: questionId,
           answerId: answerId,
         },
-      ]);
+      ];
+      setSelectedAnswers(tmp);
+      localStorage.setItem("quizzId", quizz.id);
+      localStorage.setItem("selectedAnswers", JSON.stringify(tmp));
     }
   };
 
   let questions = Object.values(quizz.lsQuizz);
 
   let handleSubmit = () => {
-    setIsLoading(true)
-    // send result to server -> get score
+    setIsLoading(true);
+    // End time
     removeCountdownTime();
+    // Remove saved answer
+    localStorage.removeItem("selectedAnswers");
+    // send result to server -> get score
     SubmitAnswer(quizz.id, selectedAnswers).then((score) => {
       console.log("score", score);
-      setIsLoading(false)
+      setIsLoading(false);
       navigate(`/exam/finish`, { state: { score: score } });
     });
   };
@@ -77,7 +83,7 @@ export default function MakeQuizz({ quizz }) {
       >
         Submit
       </Button>
-      
+
       {isLoading ? <ProgressSpinner /> : <></>}
     </>
   );

@@ -41,7 +41,7 @@ function GetQuizzById(id) {
 
  * @description This function sends the user's answer for a specific question to the server, and then retrieves the score or response data. It uses Axios to make a POST request to the server endpoint specified by the 'DOMAIN_LOCAL' constant.
  *
- * @param {number} questionId - The ID of the question to answer.
+ * @param {String} questionId - The ID of the question to answer.
  * @param {Array: [{
       quesId: questionId,
       answerId: answerId,

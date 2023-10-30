@@ -3,7 +3,7 @@ import "./App.scss";
 import Header from "./components/header/Header";
 import HomeScreen from "./layout/HomeScreen/HomeScreen";
 import ExamScreen from "./layout/ExamScreen/ExamScreen";
-import Finish from "./layout/ExamScreen/Finish/Finish";
+import Finish from "./layout/ExamScreen/Result/Finish";
 function App() {
   return (
     <>

@@ -1,1 +1,1 @@
-export const doQuizTimeLimit = 60; //minutes
+export const doQuizTimeLimit = 1; //minutes

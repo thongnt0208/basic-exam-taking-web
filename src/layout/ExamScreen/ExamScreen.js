@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { GetQuizzById } from "./ExamService";
 import MakeQuizz from "./MakeQuizz/MakeQuizz";
 import CountTime from "./MakeQuizz/CountTime";
-import { setCountdownTime } from "../../util/CountTime";
 import { ProgressSpinner } from "primereact/progressspinner";
 
 export default function ExamScreen() {
@@ -22,9 +21,6 @@ export default function ExamScreen() {
       .catch((error) => {
         console.error(error);
       });
-
-    // Set time
-    setCountdownTime();
   }, []);
 
   return (

@@ -6,7 +6,11 @@ export default function Finish() {
   return (
     <div>
       <h1>Finish</h1>
-      <p>Score: {score}</p>
+      {score !== null ? (
+        <p>Score: {score}</p>
+      ) : (
+        <>You did not check any answer and time were up.</>
+      )}
     </div>
   );
 }
