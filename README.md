@@ -12,13 +12,13 @@ Author: Nguyễn Trung Thông - SE160850
 - Lưu countdown time, đáp án đã chọn dưới localstorage → vẫn countdown dù có thoát ra vào lại
 - Câu hỏi phải được trộn: check đáp án bằng cách gửi id câu hỏi
 - Trang Home có input nhập mã code Submit → chuyển sang trang làm bài
+- Auto submit when time-out
+- Save the answer to Local Storage
 
 ### Current drawbacks
 - Do not mix the answers
 - Do not UX Optimization
 - No handling bad cases
-- No auto submit
-- No auto save answer to LS
 - No lazy load
 
 

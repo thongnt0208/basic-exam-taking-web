@@ -11,7 +11,7 @@ export default function MakeQuizz({ quizz }) {
   const [selectedAnswers, setSelectedAnswers] = useState(
     JSON.parse(localStorage.getItem("selectedAnswers")) || []
   );
-  let [check, setCheck] = useState([]);
+  let [check, setCheck] = useState(JSON.parse(localStorage.getItem("selectedAnswers")).map(item => item.answerId) || []);
   let navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
