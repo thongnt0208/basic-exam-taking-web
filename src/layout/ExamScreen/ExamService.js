@@ -20,7 +20,7 @@ import axios from "axios";
  * @version 1.0.0
  * @author ThongNT
  */
-function GetQuizzById(id) {
+async function GetQuizzById(id) {
   return axios
     .get(`${DOMAIN_LOCAL}/quizz/${id}`)
     .then((response) => {
@@ -64,7 +64,7 @@ function GetQuizzById(id) {
  * @version 1.0.0
  * @author ThongNT
  */
-function SubmitAnswer(questionId, answerString) {
+async function SubmitAnswer(questionId, answerString) {
   return axios
     .post(`${DOMAIN_LOCAL}/answer/${questionId}`, answerString)
     .then((response) => {

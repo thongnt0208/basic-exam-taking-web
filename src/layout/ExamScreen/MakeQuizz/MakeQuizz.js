@@ -20,7 +20,7 @@ export default function MakeQuizz({ quizz }) {
       // If the Checkbox is already checked, uncheck it and remove it from the selectedAnswers and check arrays
       setCheck(check.filter((id) => id !== answerId));
       let tmp = selectedAnswers.filter(
-        (item) => !(item.quesId === questionId && item.answerId === answerId)
+        (item) => item.quesId !== questionId || item.answerId !== answerId
       );
       setSelectedAnswers(tmp);
       localStorage.setItem("selectedAnswers", JSON.stringify(tmp));
@@ -59,7 +59,7 @@ export default function MakeQuizz({ quizz }) {
     <>
       <h1>{quizz.title}</h1>
       <p>{quizz.description}</p>
-      <p>{JSON.stringify(selectedAnswers)}</p>
+      {/* <p>{JSON.stringify(selectedAnswers)}</p> */}
 
       {questions.map((question, index) => (
         <div key={question.id} className="question">

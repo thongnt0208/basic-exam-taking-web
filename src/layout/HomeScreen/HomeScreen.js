@@ -5,27 +5,27 @@ import { useNavigate } from "react-router-dom";
 import { setCountdownTime } from "../../util/CountTime";
 
 export default function HomeScreen() {
-  const [userInput, setUserInput] = useState("");
+  const [code, setCode] = useState("");
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
-    setUserInput(event.target.value);
+    setCode(event.target.value);
   };
 
   const handleButtonClick = () => {
-    if (userInput === "") {
+    if (!code) {
       alert("Please enter your name");
       return;
     } else {
       // Set time
       setCountdownTime();
-      navigate(`/exam/${userInput}`);
+      navigate(`/exam/${code}`);
     }
   };
 
   return (
     <div className="homescreen-container">
-      <InputText value={userInput} onChange={handleInputChange} />
+      <InputText value={code} onChange={handleInputChange} />
       <Button onClick={handleButtonClick}>Start Exam</Button>
     </div>
   );

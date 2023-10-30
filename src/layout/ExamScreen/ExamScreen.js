@@ -7,7 +7,7 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import "../../style/ExamScreen.scss";
 
 export default function ExamScreen() {
-  let examId = useParams().id;
+  let {examId} = useParams();
   const [quizz, setQuizz] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,9 +30,9 @@ export default function ExamScreen() {
       <p>Exam ID: {examId}</p>
       {/* <p>{JSON.stringify(quizz)}</p> */}
       {/* Input information */}
-      {isLoading ? <ProgressSpinner /> : <></>}
+      {isLoading && <ProgressSpinner />}
       {/* Make Quizz */}
-      {quizz === null ? <></> : <MakeQuizz quizz={quizz} />}
+      {quizz !== null && <MakeQuizz quizz={quizz} />}
       <div className="count-time-container">
         <CountTime />
       </div>

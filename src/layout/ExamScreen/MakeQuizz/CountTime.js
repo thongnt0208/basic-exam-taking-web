@@ -24,9 +24,9 @@ const CountTime = () => {
         if (updatedTime <= 0) {
           // If there is answer selected and time-out -> auto submit
           if (quizzId !== null && selectedAnswers !== null) {
-            localStorage.removeItem("selectedAnswers");
             SubmitAnswer(quizzId, selectedAnswers).then((score) => {
               console.log("score", score);
+              localStorage.removeItem("selectedAnswers");
               navigate(`/exam/finish`, { state: { score: score } });
             });
           } else {
