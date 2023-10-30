@@ -13,9 +13,14 @@ export default function HomeScreen() {
   };
 
   const handleButtonClick = () => {
-    // Set time
-    setCountdownTime();
-    navigate(`/exam/${userInput}`);
+    if (userInput === "") {
+      alert("Please enter your name");
+      return;
+    } else {
+      // Set time
+      setCountdownTime();
+      navigate(`/exam/${userInput}`);
+    }
   };
 
   return (

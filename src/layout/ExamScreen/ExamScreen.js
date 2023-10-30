@@ -4,6 +4,7 @@ import { GetQuizzById } from "./ExamService";
 import MakeQuizz from "./MakeQuizz/MakeQuizz";
 import CountTime from "./MakeQuizz/CountTime";
 import { ProgressSpinner } from "primereact/progressspinner";
+import "../../style/ExamScreen.scss";
 
 export default function ExamScreen() {
   let examId = useParams().id;
@@ -32,7 +33,9 @@ export default function ExamScreen() {
       {isLoading ? <ProgressSpinner /> : <></>}
       {/* Make Quizz */}
       {quizz === null ? <></> : <MakeQuizz quizz={quizz} />}
-      <CountTime />
+      <div className="count-time-container">
+        <CountTime />
+      </div>
     </>
   );
 }

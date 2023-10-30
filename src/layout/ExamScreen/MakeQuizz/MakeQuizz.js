@@ -8,7 +8,9 @@ import { ProgressSpinner } from "primereact/progressspinner";
 
 export default function MakeQuizz({ quizz }) {
   console.log("quizz-MakeQuiz", quizz);
-  const [selectedAnswers, setSelectedAnswers] = useState([]);
+  const [selectedAnswers, setSelectedAnswers] = useState(
+    JSON.parse(localStorage.getItem("selectedAnswers")) || []
+  );
   let [check, setCheck] = useState([]);
   let navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);

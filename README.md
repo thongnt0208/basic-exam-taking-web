@@ -16,7 +16,6 @@ Author: Nguyễn Trung Thông - SE160850
 ### Current drawbacks
 - Do not mix the answers
 - Do not UX Optimization
-- Can not stop Countdown after submission
 - No handling bad cases
 - No auto submit
 - No auto save answer to LS
