@@ -11,21 +11,21 @@ export default function MakeQuizz({ quizz }) {
   const [selectedAnswers, setSelectedAnswers] = useState(
     JSON.parse(localStorage.getItem("selectedAnswers")) || []
   );
-  let [check, setCheck] = useState(JSON.parse(localStorage.getItem("selectedAnswers")).map(item => item.answerId) || []);
+  let [checked, setChecked] = useState(JSON.parse(localStorage.getItem("selectedAnswers"))?.map(item => item.answerId) || []);
   let navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleAnswerClick = (questionId, answerId) => {
-    if (check.includes(answerId)) {
-      // If the Checkbox is already checked, uncheck it and remove it from the selectedAnswers and check arrays
-      setCheck(check.filter((id) => id !== answerId));
+    if (checked.includes(answerId)) {
+      // If the Checkbox is already checked, uncheck it and remove it from the selectedAnswers and checked arrays
+      setChecked(checked.filter((id) => id !== answerId));
       let tmp = selectedAnswers.filter(
         (item) => item.quesId !== questionId || item.answerId !== answerId
       );
       setSelectedAnswers(tmp);
       localStorage.setItem("selectedAnswers", JSON.stringify(tmp));
     } else {
-      setCheck([...check, answerId]);
+      setChecked([...checked, answerId]);
       let tmp = [
         ...selectedAnswers,
         {
@@ -65,10 +65,12 @@ export default function MakeQuizz({ quizz }) {
         <div key={question.id} className="question">
           <h2>{question.content}</h2>
           <ul>
+            {question.isMutiple && <p style={{color: "red"}}>Please choose only 1 answer</p>}
+            {!question.isMutiple && <p style={{color: "red"}}>Maybe there are more than 1 right answer</p>}
             {question.answer.map((answer) => (
               <div key={answer.id}>
                 <Checkbox
-                  checked={check.includes(answer.id)}
+                  checked={checked.includes(answer.id)}
                   onChange={() => handleAnswerClick(question.id, answer.id)}
                 />
                 {answer.content}

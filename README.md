@@ -17,8 +17,9 @@ Author: Nguyễn Trung Thông - SE160850
 
 ### Current drawbacks
 - Do not mix the answers
+- Do not handle Multiple choice
 - Do not UX Optimization
-- No handling bad cases
+- No handling submit when do not check all answers
 - No lazy load
 
 
