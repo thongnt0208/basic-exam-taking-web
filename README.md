@@ -2,6 +2,9 @@
 This repository stores my Basic Exam Taking Web Application code by ReactJS. One part of the "Bootcamp: Front-End with React Framework" program belongs to the "Future Foundation" events series of FPT University HCM.
 Author: Nguyễn Trung Thông - SE160850
 
+## Demo
+![screenshot](https://github.com/thongnt0208/basic-exam-taking-web/blob/master/screenshot/screenshot.gif?raw=true)
+
 ## Technologies
 - Library: ReactJS
 - UI: Prime React
