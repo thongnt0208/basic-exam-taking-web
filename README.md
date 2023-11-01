@@ -16,11 +16,12 @@ Author: Nguyễn Trung Thông - SE160850
 - Save the answer to Local Storage
 
 ### Current drawbacks
+- There is no function for input personal information
 - Do not mix the answers
-- Do not handle Multiple choice
+- No lazy load
 - Do not UX Optimization
 - No handling submit when do not check all answers
-- No lazy load
+- No confirmation when submit
 
 
 ### Update real API
