@@ -11,31 +11,32 @@ export default function MakeQuizz({ quizz }) {
   const [selectedAnswers, setSelectedAnswers] = useState(
     JSON.parse(localStorage.getItem("selectedAnswers")) || []
   );
-  let [checked, setChecked] = useState(JSON.parse(localStorage.getItem("selectedAnswers"))?.map(item => item.answerId) || []);
   let navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleAnswerClick = (questionId, answerId) => {
-    if (checked.includes(answerId)) {
-      // If the Checkbox is already checked, uncheck it and remove it from the selectedAnswers and checked arrays
-      setChecked(checked.filter((id) => id !== answerId));
-      let tmp = selectedAnswers.filter(
-        (item) => item.quesId !== questionId || item.answerId !== answerId
-      );
-      setSelectedAnswers(tmp);
-      localStorage.setItem("selectedAnswers", JSON.stringify(tmp));
+    const answerIndex = selectedAnswers.findIndex(
+      (item) => item.quesId === questionId && item.answerId === answerId
+    );
+
+    if (answerIndex !== -1) {
+      // If the answer is already selected, remove it from selectedAnswers
+      const updatedAnswers = [...selectedAnswers];
+      updatedAnswers.splice(answerIndex, 1);
+      setSelectedAnswers(updatedAnswers);
+      localStorage.setItem("selectedAnswers", JSON.stringify(updatedAnswers));
     } else {
-      setChecked([...checked, answerId]);
-      let tmp = [
-        ...selectedAnswers,
-        {
-          quesId: questionId,
-          answerId: answerId,
-        },
-      ];
-      setSelectedAnswers(tmp);
+      // If the answer is not selected, add it to selectedAnswers
+      const newAnswer = {
+        quesId: questionId,
+        answerId: answerId,
+      };
+      setSelectedAnswers([...selectedAnswers, newAnswer]);
       localStorage.setItem("quizzId", quizz.id);
-      localStorage.setItem("selectedAnswers", JSON.stringify(tmp));
+      localStorage.setItem(
+        "selectedAnswers",
+        JSON.stringify([...selectedAnswers, newAnswer])
+      );
     }
   };
 
@@ -65,12 +66,21 @@ export default function MakeQuizz({ quizz }) {
         <div key={question.id} className="question">
           <h2>{question.content}</h2>
           <ul>
-            {question.isMutiple && <p style={{color: "red"}}>Please choose only 1 answer</p>}
-            {!question.isMutiple && <p style={{color: "red"}}>Maybe there are more than 1 right answer</p>}
+            {question.isMutiple && (
+              <p style={{ color: "blue" }}>Please choose only 1 answer</p>
+            )}
+            {!question.isMutiple && (
+              <p style={{ color: "blue" }}>
+                Maybe there are more than 1 right answer
+              </p>
+            )}
             {question.answer.map((answer) => (
               <div key={answer.id}>
                 <Checkbox
-                  checked={checked.includes(answer.id)}
+                  checked={selectedAnswers.some(
+                    (item) =>
+                      item.quesId === question.id && item.answerId === answer.id
+                  )}
                   onChange={() => handleAnswerClick(question.id, answer.id)}
                 />
                 {answer.content}
@@ -80,13 +90,7 @@ export default function MakeQuizz({ quizz }) {
         </div>
       ))}
 
-      <Button
-        onClick={() => {
-          handleSubmit();
-        }}
-      >
-        Submit
-      </Button>
+      <Button onClick={() => handleSubmit()}>Submit</Button>
 
       {isLoading ? <ProgressSpinner /> : <></>}
     </>
